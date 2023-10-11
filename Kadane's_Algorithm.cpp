@@ -14,12 +14,23 @@ signed main()
     for(int i = 0  ; i < n ; i ++) {
         cin >> v[i];
     }
-    int ans = LLONG_MIN, a = 0;
-    for(int x : v){
-        a += x;
-        ans = max(ans, a);
-        a = max(a, 0ll);
-    }
-    cout << ans << endl;
-    
+
+    //max
+    // int ans = LLONG_MIN, a = 0;
+    // for(int x : v){
+    //     a += x;
+    //     ans = max(ans, a);
+    //     a = max(a, 0ll);
+    // }
+    // cout << ans << endl;
+
+
+    //min
+    // int ans = LLONG_MAX, a = 0;
+    // for(int x : v){
+    //     a += x;
+    //     ans = min(ans, a);
+    //     a = min(a, 0ll);
+    // }
+    // cout << ans << endl;
 }
