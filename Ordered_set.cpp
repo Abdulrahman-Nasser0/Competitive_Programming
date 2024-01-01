@@ -5,6 +5,66 @@ find_by_order(k) : K-th element in a set (counting from zero).
 
 */
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// for one element
+   #include <bits/stdc++.h>
+using namespace std;
+#define ll  long long
+#define endl "\n"
+#define all(v) v.begin(), v.end()
+#define allr(v) v.rbegin(), v.rend()
+
+
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+template<typename T>
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+ 
+void solve(){
+   
+    int n;cin >> n;
+    vector<pair<ll,ll>> v(n);
+    ordered_set <int> st;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> v[i].first;
+        cin >> v[i].second;
+        st.insert(v[i].second);
+    }
+
+    sort(all(v));
+    int sum = 0;
+    for(auto i : v){
+        st.erase(i.second);
+        sum += st.order_of_key(i.second);
+    }
+    cout << sum << endl;
+
+}
+
+signed main()
+{
+    ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
+    int t = 1;
+    cin >> t;
+    while(t--){
+        solve();
+    }
+    
+
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
 #include <bits/stdc++.h>
 using namespace std;
 // #define int  long long
