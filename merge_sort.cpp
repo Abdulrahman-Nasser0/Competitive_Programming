@@ -1,74 +1,50 @@
-// C++ program for Merge Sort
 #include <bits/stdc++.h>
 using namespace std;
 
-// Merges two subarrays of array[].
-// First subarray is arr[begin..mid]
-// Second subarray is arr[mid+1..end]
-void merge(int array[], int const left, int const mid, int const right)
-{
-	int const subArrayOne = mid - left + 1;
-	int const subArrayTwo = right - mid;
+vector<int> v{5,2,-2, 0 , 44, 3};
 
-	auto *leftArray = new int[subArrayOne],
-		*rightArray = new int[subArrayTwo];
+void merge(int l , int m , int r){
+    int i , j , k;
+    int n1 = m-l+1;
+    int n2 = r - m;
 
-	for (auto i = 0; i < subArrayOne; i++)
-		leftArray[i] = array[left + i];
-	for (auto j = 0; j < subArrayTwo; j++)
-		rightArray[j] = array[mid + 1 + j];
+    vector<int> left(n1), right(n2);
+    for(i = 0 ; i < n1; i++){
+        left[i] = v[l+i];
+    }
+    for(j = 0 ; j < n2; j++){
+        right[j] = v[m+1+j];
+    }
+    i = 0 ; j = 0 ; k = l;
 
-	auto l = 0, r = 0;
-	int i = left;
+    while(i < n1 && j < n2){
+        if(left[i] <= right[j])
+            v[k++] = left[i++];
+        else
+            v[k++] = right[j++];
+    }
+    while(i < n1)
+        v[k++] = left[i++];
+    while(j < n2)
+        v[k++] = right[j++];
 
-	while (l < subArrayOne && r < subArrayTwo) {
-		if (leftArray[l] <= rightArray[r]) {
-			array[i] = leftArray[l];
-			l++;
-		}
-		else {
-			array[i] = rightArray[r];
-			r++;
-		}
-		i++;
-	}
-
-	while (l < subArrayOne) {
-		array[i] = leftArray[l];
-		l++;
-		i++;
-	}
-
-	while (r < subArrayTwo) {
-		array[i]
-			= rightArray[r];
-		r++;
-		i++;
-	}
-	delete[] leftArray;
-	delete[] rightArray;
 }
 
-void mergeSort(int array[], int const begin, int const end)
-{
-	if (begin >= end)
-		return;
 
-	int mid = begin + (end - begin) / 2;
-	mergeSort(array, begin, mid);
-	mergeSort(array, mid + 1, end);
-	merge(array, begin, mid, end);
+void mergeSort(int i , int  j ){
+    if(i >= j )return;
+
+    int m = (i + j )/2;
+    mergeSort(i, m);
+    mergeSort(m+1, j);
+    merge(i , m , j);
+
 }
+
 
 int main()
 {
-	int arr[] = { 12, 11, 13, 5, 6, 7, 0 , 1 , 2 ,2  };
-	int arr_size = sizeof(arr) / sizeof(arr[0]);
 
-	mergeSort(arr, 0, arr_size - 1);
-    for (int i = 0; i < arr_size; i++)
-    {
-        cout << arr[i] << " ";
-    }
-    
+    mergeSort(0 , v.size()-1);
+    for(auto i : v)cout << i << " ";
 }
