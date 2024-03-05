@@ -1,0 +1,47 @@
+void solve() {
+   
+    int A, B, n ;cin >> A >> B >> n;
+    vector<int> a(n), b(n);
+    map<int, unordered_set<int>> mp1, mp2;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+        mp1[a[i]].insert(i);
+    }
+    for (int i = 0; i < n; i++)
+    {
+        cin >> b[i];
+        mp2[b[i]].insert(i);
+    }
+
+    int ans = 0;
+    vector<int> intersect(n);
+    for (int i = 0; i < n; i++)
+    {
+        set<int> st;
+        mp1[a[i]].erase(i);
+        mp2[b[i]].erase(i);
+        set_intersection(mp1[a[i]].begin(), mp1[a[i]].end(), mp2[b[i]].begin(), mp2[b[i]].end(), std::inserter(st, st.begin()));
+        intersect[i] = st.size();
+        
+    }
+    for (int i = 0; i < n; i++)
+    {
+        mp1[a[i]].insert(i);
+    }
+    for (int i = 0; i < n; i++)
+    {
+        mp2[b[i]].insert(i);
+    }
+    
+    for (int i = 0; i < n; i++)
+    {
+        mp1[a[i]].erase(i);
+        mp2[b[i]].erase(i);
+        int delet = mp1[a[i]].size() + mp2[b[i]].size() - intersect[i];
+        ans += n-i-1 - delet;
+    }
+    cout <<ans <<  endl;
+    
+    
+}
